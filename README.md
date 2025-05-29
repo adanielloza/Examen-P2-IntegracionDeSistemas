@@ -2,6 +2,13 @@
 
 Este repositorio contiene la solución completa para el Proyecto de Integración de Sistemas de la Universidad, donde integramos tres microservicios (REST, SOAP y JWT) dentro de un Service Mesh con Istio, expuestos a través de un API Gateway. También aplicamos patrones de resiliencia (reintentos y circuit-breaker) y habilitamos monitoreo y trazabilidad.
 
+Link del PDF
+
+ https://udlaec-my.sharepoint.com/my?id=%2Fpersonal%2Fandres%5Floza%5Fchacon%5Fudla%5Fedu%5Fec%2FDocuments%2FTest&login_hint=andres%2Eloza%2Echacon%40udla%2Eedu%2Eec&source=waffle
+Puedes descargar o visualizar el informe completo aquí:
+
+[Informe de Análisis – Evaluación Práctica Progreso 1 (PDF)]
+Lo unico que anadi son los fotos del ApiGateWay, la configuracion.
 ---
 
 ## 🔍 Visión General
