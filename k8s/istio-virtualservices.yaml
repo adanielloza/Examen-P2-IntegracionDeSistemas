@@ -1,0 +1,36 @@
+# k8s/istio-virtualservices.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: exam-virtualservice
+  namespace: exam-p2-integration
+spec:
+  hosts:
+  - "*"                      # match whatever host the gateway accepts
+  gateways:
+  - exam-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /verify      # SecurityService
+    route:
+    - destination:
+        host: securityservice.exam-p2-integration.svc.cluster.local
+        port:
+          number: 8005
+  - match:
+    - uri:
+        prefix: /solicitudes # AcademicService
+    route:
+    - destination:
+        host: academicservice.exam-p2-integration.svc.cluster.local
+        port:
+          number: 8004
+  - match:
+    - uri:
+        prefix: /soap        # CertService mock SOAP
+    route:
+    - destination:
+        host: certificationservice.exam-p2-integration.svc.cluster.local
+        port:
+          number: 8006

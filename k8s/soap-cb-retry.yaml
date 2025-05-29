@@ -1,0 +1,34 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: certservice-cb
+  namespace: exam-p2-integration
+spec:
+  host: certificationservice.exam-p2-integration.svc.cluster.local
+  trafficPolicy:
+    # simple circuit-breaker: break on 5 consecutive 5xx errors,
+    # wait 30s before trying to close the circuit
+    outlierDetection:
+      consecutiveErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: academic-to-cert-retry
+  namespace: exam-p2-integration
+spec:
+  hosts:
+  - certificationservice.exam-p2-integration.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: certificationservice.exam-p2-integration.svc.cluster.local
+        port:
+          number: 8006
+    retries:
+      attempts: 2          # retry twice on failure
+      perTryTimeout: 2s    # give each try up to 2 seconds
+      retryOn: gateway-error,connect-failure,refused-stream

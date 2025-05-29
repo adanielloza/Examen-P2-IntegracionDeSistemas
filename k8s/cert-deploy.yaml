@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: certificationservice
+  namespace: exam-p2-integration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: certificationservice
+  template:
+    metadata:
+      labels:
+        app: certificationservice
+    spec:
+      containers:
+      - name: certificationservice
+        image: exam-certificationservice:0.1
+        ports:
+        - containerPort: 8006
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: certificationservice
+  namespace: exam-p2-integration
+spec:
+  ports:
+  - port: 8006
+    name: soap
+  selector:
+    app: certificationservice

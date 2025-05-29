@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: securityservice
+  namespace: exam-p2-integration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: securityservice
+  template:
+    metadata:
+      labels:
+        app: securityservice
+    spec:
+      containers:
+      - name: securityservice
+        image: exam-securityservice:0.1
+        ports:
+        - containerPort: 8005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: securityservice
+  namespace: exam-p2-integration
+spec:
+  ports:
+  - port: 8005
+    name: http
+  selector:
+    app: securityservice
